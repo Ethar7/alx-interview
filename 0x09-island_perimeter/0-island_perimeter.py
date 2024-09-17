@@ -1,30 +1,21 @@
 #!/usr/bin/python3
-"""
-Function that returns the perimeter of the island described in grid
-"""
+"""Island Perimeter"""
 
 
 def island_perimeter(grid):
-    '''find permiter'''
+    """returns the perimeter of the island described in grid"""
     perimeter = 0
-    width  = len(grid)
+    rows, cols = len(grid), len(grid[0])
 
-    if not grid:
-        return 0
-
-    for row in range(0, width):
-        height = len(grid[row]);
-        if (height <= 2):
-            continue
-        for col in range(0, height):
-            if row == 0 or col == 0 or col == height - 1 or row == width - 1:
-                if (grid[row][col]):
-                    return 0
-
-            if (grid[row][col]):
-                perimeter += grid[row][col - 1] == 0
-                perimeter += grid[row - 1][col] == 0
-                perimeter += grid[row][col + 1] == 0
-                perimeter += grid[row + 1][col] == 0
-
+    for i in range(rows):
+        for j in range(cols):
+            if grid[i][j] == 1:
+                if i == 0 or grid[i - 1][j] == 0:  # Check top
+                    perimeter += 1
+                if i == rows - 1 or grid[i + 1][j] == 0:  # Check bottom
+                    perimeter += 1
+                if j == 0 or grid[i][j - 1] == 0:  # Check left
+                    perimeter += 1
+                if j == cols - 1 or grid[i][j + 1] == 0:  # Check right
+                    perimeter += 1
     return perimeter
